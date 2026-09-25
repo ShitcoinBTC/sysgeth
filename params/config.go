@@ -71,9 +71,13 @@ var (
 			Prague: DefaultPragueBlobConfig,
 		},
 	}
-	// SYSCOIN
+	// SHITCOIN: Shitcoin NEVM chain (chain ID 20026). This struct was Syscoin
+	// mainnet's config; it now carries the Shitcoin chain. The `--syscoin`
+	// CLI flag name is intentionally kept so syscoind launches this binary
+	// unchanged. Fresh chain: every EVM fork active from genesis, no
+	// Nexus/VaultMigration cutovers (nil = never).
 	SyscoinChainConfig = &ChainConfig{
-		ChainID:             big.NewInt(57),
+		ChainID:             big.NewInt(20026),
 		HomesteadBlock:      big.NewInt(0),
 		DAOForkBlock:        nil,
 		DAOForkSupport:      false,
@@ -87,21 +91,16 @@ var (
 		MuirGlacierBlock:    big.NewInt(0),
 		BerlinBlock:         big.NewInt(0),
 		SyscoinBlock:        big.NewInt(0),
-		RolluxBlock:         big.NewInt(268500),
-		ShanghaiBlock:       big.NewInt(268500),
-		NexusBlock:          big.NewInt(692846),
-		// Liberty rules and the Bridge V2 balance migration activate together.
-		// This NEVM block is committed one Core block before the paired Core
-		// manager cutover H=2292816, so F's roots are readable at H.
-		LibertyBlock:            big.NewInt(975316),
-		VaultMigrationBlock:     big.NewInt(975316),
-		VaultManagerV2:          common.HexToAddress("0x28bD37C0926575f2568ea8f297c0745EF16174Ab"),
-		LondonBlock:             big.NewInt(1),
+		RolluxBlock:         big.NewInt(0),
+		ShanghaiBlock:       big.NewInt(0),
+		NexusBlock:          nil,
+		// Liberty rules (MCOPY + transient storage, no blob opcodes) from
+		// genesis: the bridge contracts target this instruction set.
+		LibertyBlock:            big.NewInt(0),
+		VaultMigrationBlock:     nil,
+		VaultManagerV2:          common.Address{},
+		LondonBlock:             big.NewInt(0),
 		TerminalTotalDifficulty: big.NewInt(1),
-		//ShanghaiTime:                  newUint64(1679618404),
-		// SYSCOIN TODO enable later fork such as prague or verkle (make sure to merge which instruction sets into latest one for us)
-		// cancun enables a new signer so we jump to prague or better to ensure we dont need blob signing txs from cancun
-		//CancunTime:                    newUint64(1679618404),
 		Ethash: nil,
 	}
 	TanenbaumChainConfig = &ChainConfig{

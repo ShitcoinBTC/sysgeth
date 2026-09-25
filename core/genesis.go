@@ -621,13 +621,16 @@ func DefaultGenesisBlock() *Genesis {
 }
 // SYSCOIN
 func DefaultSyscoinGenesisBlock() *Genesis {
+	// SHITCOIN: Shitcoin NEVM genesis. The alloc (shitcoinAllocData) contains
+	// the ShitcoinVaultManager contract at
+	// 0x7904299b3D3dC1b03d1DdEb45E9fDF3576aCBd5f. See contracts/ShitcoinVaultManager.sol.
 	return &Genesis{
 		Config:     params.SyscoinChainConfig,
 		Timestamp:  0x60d7aef6,
 		ExtraData:  hexutil.MustDecode("0x00"),
 		GasLimit:   0x7A1200,
 		Difficulty: big.NewInt(1),
-		Alloc:      decodePrealloc(syscoinAllocData),
+		Alloc:      decodePrealloc(shitcoinAllocData),
 	}
 }
 func DefaultTanenbaumGenesisBlock() *Genesis {
